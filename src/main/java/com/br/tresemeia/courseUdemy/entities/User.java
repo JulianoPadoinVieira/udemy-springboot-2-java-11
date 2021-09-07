@@ -2,9 +2,37 @@ package com.br.tresemeia.courseUdemy.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+/*
+ * Basic entity checklist:
+	* Basic attributes
+    * Associations (instantiate collections)
+    	*OBS: como é a primeira entidade, não tem associação 
+	* Constructors
+	* Getters & Setters (collections: only get)
+	* hashCode & equals (pode ser somente para o ID como nesse caso)
+	* Serializable (a classe "implements Serializable", 
+	* obrigatório: 
+		* private static final long serialVersionUID = 1L)
+
+ * H2 database, test profile, JPA
+	* JPA & H2 dependencies (no pom.xml)
+	* application.properties (spring.profiles.active=test spring.jpa.open-in-view=true)
+	* application-test.properties (criar e configurar o arquivo)
+	* Entity: JPA mapping (@Entity, @Id e @GeneratedValue)
+ */
+
+@Entity
 public class User implements Serializable {	
 	
 	private static final long serialVersionUID = 1L;
+	
+	@Id //Chave primária
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //Auto increment
 	private Long id;
 	private String name;
 	private String email;
