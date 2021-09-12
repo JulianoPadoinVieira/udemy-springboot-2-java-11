@@ -1,11 +1,15 @@
 package com.br.tresemeia.courseUdemy.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /*
  * Basic entity checklist:
@@ -27,6 +31,7 @@ import javax.persistence.Id;
  */
 
 @Entity
+@Table(name = "tb_user")
 public class User implements Serializable {	
 	
 	private static final long serialVersionUID = 1L;
@@ -37,7 +42,13 @@ public class User implements Serializable {
 	private String name;
 	private String email;
 	private String phone;
-	private String password;
+	private String password;	
+	
+	
+	
+	@OneToMany(mappedBy = "client")
+	//Necessário instanciar as coleções (new ArrayList<>())
+	private List<Order> orders = new ArrayList<>();
 	
 	//Construtor padrão
 	public User() {
@@ -93,6 +104,10 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public List<Order> getOrders() {
+		return orders;
+	}
 
 	@Override
 	public int hashCode() {
@@ -117,6 +132,6 @@ public class User implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
+	}	
 
 }
