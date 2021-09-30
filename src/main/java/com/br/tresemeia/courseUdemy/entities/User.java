@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /*
  * Basic entity checklist:
 	* Basic attributes
@@ -42,10 +44,9 @@ public class User implements Serializable {
 	private String name;
 	private String email;
 	private String phone;
-	private String password;	
+	private String password;		
 	
-	
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	//Necessário instanciar as coleções (new ArrayList<>())
 	private List<Order> orders = new ArrayList<>();

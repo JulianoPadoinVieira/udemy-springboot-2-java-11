@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /*
  * Basic entity checklist:
 	* Basic attributes
@@ -32,6 +34,8 @@ public class Order implements Serializable{
 	@Id //Chave primária
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Auto increment
 	private Long id;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
 	
 	@ManyToOne
