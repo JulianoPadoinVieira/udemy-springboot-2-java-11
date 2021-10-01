@@ -22,8 +22,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 	* Getters & Setters (collections: only get)
 	* hashCode & equals (pode ser somente para o ID como nesse caso)
 	* Serializable (a classe "implements Serializable", 
-	* obrigatório: 
-		* private static final long serialVersionUID = 1L)
+		* obrigatório: 
+			* private static final long serialVersionUID = 1L)
 
  * H2 database, test profile, JPA
 	* JPA & H2 dependencies (no pom.xml)

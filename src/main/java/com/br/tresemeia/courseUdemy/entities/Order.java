@@ -23,8 +23,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 	* Getters & Setters (collections: only get)
 	* hashCode & equals (pode ser somente para o ID como nesse caso)
 	* Serializable (a classe "implements Serializable", 
-	* obrigatório: 
-		* private static final long serialVersionUID = 1L)
+		* obrigatório: 
+			* private static final long serialVersionUID = 1L)
 */
 @Entity
 @Table(name = "tb_order") //Nome da tabela, nesse caso obrigatório por causa do conflito de nome
