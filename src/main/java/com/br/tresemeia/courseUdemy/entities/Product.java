@@ -1,6 +1,5 @@
 package com.br.tresemeia.courseUdemy.entities;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,8 +23,8 @@ import javax.persistence.Transient;
  */
 
 @Entity
-@Table(name = "tb_category")
-public class Category implements Serializable {	
+@Table(name = "tb_product")
+public class Product {	
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -33,25 +32,38 @@ public class Category implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Auto increment
 	private Long id;
 	private String name;
+	private String description;
+	private Double price;
+	private String imgUrl;
+	
+	//Nesse caso especifico não usamos lista
+	//Usaremos "Set" que representa um conjunto
+	//Para garantir que não teremos um produto com mais de uma ocorrência da mesma categoria, ou seja
+	//O mesmo produto não pode ter mais uma mesma categoria mais de uma vez 
+	//OBS: para garantir que a coleção inicie vazia e NÃO nula colocamos o new HashSet<>()
+	//OBS2: não podemos instanciar o set, por isso o HashSet
 	
 	@Transient //Temporário, impede que o JPA interprete a linha abaixo
-	private Set<Product> products = new HashSet<>();
+	private Set<Category> categories = new HashSet<>();
 	
-	public Category() {		
+	public Product() {
 		
 	}
 
-	public Category(Long id, String name) {
+	public Product(Long id, String name, String description, Double price, String imgUrl) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.imgUrl = imgUrl;
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -62,16 +74,40 @@ public class Category implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public Set<Product> getProducts() {
-		return products;
-	}	
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public Set<Category> getCategories() {
+		return categories;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -83,10 +119,13 @@ public class Category implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
-		if (id != other.id)
+		Product other = (Product) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
-
+	}
+	
 }
