@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /*
  * Basic entity checklist:
@@ -36,14 +38,21 @@ public class Product {
 	private Double price;
 	private String imgUrl;
 	
-	//Nesse caso especifico não usamos lista
-	//Usaremos "Set" que representa um conjunto
-	//Para garantir que não teremos um produto com mais de uma ocorrência da mesma categoria, ou seja
-	//O mesmo produto não pode ter mais uma mesma categoria mais de uma vez 
-	//OBS: para garantir que a coleção inicie vazia e NÃO nula colocamos o new HashSet<>()
-	//OBS2: não podemos instanciar o set, por isso o HashSet
-	
-	@Transient //Temporário, impede que o JPA interprete a linha abaixo
+	/* 
+		Nesse caso especifico não usamos lista, usaremos "Set" que representa um conjunto para
+		garantir que não teremos um produto com mais de uma ocorrência da mesma categoria, ou seja
+		o mesmo produto não pode ter mais uma mesma categoria mais de uma vez. 
+			OBS: para garantir que a coleção inicie vazia e NÃO nula colocamos o new HashSet<>()
+			OBS2: não podemos instanciar o set, por isso o HashSet
+	*/	
+	@ManyToMany //Muitos para muitos entre Product e Category
+	//name: nome da tabela de associação do banco de dados
+	//joinColumns: nome da chave estrangeira referente a tabela de product
+	//@JoinColumn: annotation do JPA (nome da chave estrangeira do produto)
+	//inverseJoinColumns: chave estrangeira da outra entidade
+	@JoinTable(name = "tb_product_category", 
+	joinColumns = @JoinColumn(name = "product_id"),
+	inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 	
 	public Product() {

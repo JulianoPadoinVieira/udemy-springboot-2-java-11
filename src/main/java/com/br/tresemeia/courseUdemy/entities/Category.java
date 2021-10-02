@@ -8,8 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /*
  * Basic entity checklist:
@@ -34,7 +37,9 @@ public class Category implements Serializable {
 	private Long id;
 	private String name;
 	
-	@Transient //Temporário, impede que o JPA interprete a linha abaixo
+	//mappedBy: nome da coleção que tem na outra classe(Product)
+	@ManyToMany(mappedBy = "categories")
+	@JsonIgnore
 	private Set<Product> products = new HashSet<>();
 	
 	public Category() {		
