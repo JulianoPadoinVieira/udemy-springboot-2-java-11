@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.br.tresemeia.courseUdemy.entities.User;
 import com.br.tresemeia.courseUdemy.repositories.UserRepository;
+import com.br.tresemeia.courseUdemy.services.exceptions.ResourceNotFoundException;
 
 //@Service: injeta a classe automaticamente no spring boot como uma classe da camada de serviço
 @Service
@@ -25,7 +26,7 @@ public class UserService {
 	//Retorna um objeto Optional do tipo User
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public User insert(User obj) {
