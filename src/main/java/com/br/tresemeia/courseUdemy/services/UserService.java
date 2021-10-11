@@ -47,7 +47,12 @@ public class UserService {
 			throw new DatabaseException(e.getMessage()); 
 		} catch(RuntimeException e)	{ //Usamos isso para capturar o erro gerado
 			e.printStackTrace();
+<<<<<<< HEAD
 		}		
+=======
+		}
+		
+>>>>>>> 0a253d1b23a3f802b68737c3ec3f4997893781b7
 	}
 	
 	
